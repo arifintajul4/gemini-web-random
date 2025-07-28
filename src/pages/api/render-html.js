@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 async function getHtml() {
   const openai = new OpenAI({
     baseURL: 'https://api.akbxr.com/v1',
-    apiKey: process.env.AKBXR_API_KEY || '',
+    apiKey: process.env.AKBXR_API_KEY || 'UNLIMITED-BETA',
   });
   const tema = process.env.THEME || 'random';
   return new Promise(async (resolve, reject) => {
@@ -19,7 +19,6 @@ async function getHtml() {
       });
       resolve(completion.choices[0].message.content);
     } catch (error) {
-      console.error('Error:', error);
       reject(error);
     }
   });
@@ -27,7 +26,7 @@ async function getHtml() {
 
 export default async function handler(req, res) {
   const htmlContent = await getHtml().catch((error) => {
-    console.error('Error fetching HTML:', error);
+    console.error(error);
     res.status(500).send(error);
     return;
   });
