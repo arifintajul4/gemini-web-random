@@ -20,7 +20,7 @@ export default function HomePage() {
         }
       } catch (err) {
         console.error('Error fetch HTML:', err);
-        setHtml('<p>Terjadi kesalahan saat memuat konten.</p>');
+        setHtml(err);
       } finally {
         setLoading(false);
       }

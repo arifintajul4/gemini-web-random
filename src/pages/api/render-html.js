@@ -20,7 +20,7 @@ async function getHtml() {
       resolve(completion.choices[0].message.content);
     } catch (error) {
       console.error('Error:', error);
-      reject('Failed to fetch HTML content');
+      reject(error);
     }
   });
 }
@@ -28,7 +28,7 @@ async function getHtml() {
 export default async function handler(req, res) {
   const htmlContent = await getHtml().catch((error) => {
     console.error('Error fetching HTML:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(error);
     return;
   });
 
